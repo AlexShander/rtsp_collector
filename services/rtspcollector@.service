@@ -1,0 +1,15 @@
+4Unit]
+Description=Run openSRTP to collection the files from the remoute microphones.
+After=network.target 
+
+[Service]
+Type=Simple
+Restart=always
+RestartSec=30
+Environment=WORKDIR=%i
+ExecStartPre=/bin/mkdir -p /var/spool/micropones/%i
+ExecStart=/usr/local/share/rtsp_collector/record_files.sh %i
+
+[Install]
+WantedBy=multi-user.target
+
