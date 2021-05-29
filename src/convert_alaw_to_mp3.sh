@@ -1,5 +1,20 @@
 #!/bin/bash
 # Convert to and store the files by a time group.
+set -x
 
-while read 
-find /var/spool/micropones/raw/ -mmin 3
+typeset -i lastmodifyfile
+typeset -i longrecord
+longrecord=60
+
+find /var/spool/micropones/raw/  -type f -mmin +3 -print0| while IFS= read -r -d '' alawfile
+do
+  nameservice=$(basename $(dirname $alawfile))
+  lastmodifyfile=$(stat --format=%Y $alawfile)
+  creationdate=$(expr $lastmodifyfile - $longrecord)
+  sox -r 16k -t al -c 1 $alawfile /tmp/$alawfile.wav
+  rm -f $alawfile
+  mkdir -p  /var/spool/micropones/mp3/$nameservice/$(date -d @$creationdate '+%m/%d/%H')
+  lame  -h /tmp/$alawfile.wav /var/spool/micropones/mp3/$nameservice/$(date -d @$creationdate '+%m/%d/%H')/$(date -d @$creationdate '+%M_%S').mp3 1>/dev/null 2>/dev/null
+  rm -f  /tmp/$alawfile.wav 
+done 
+
