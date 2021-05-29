@@ -11,10 +11,10 @@ do
   nameservice=$(basename $(dirname $alawfile))
   lastmodifyfile=$(stat --format=%Y $alawfile)
   creationdate=$(expr $lastmodifyfile - $longrecord)
-  sox -r 16k -t al -c 1 $alawfile /tmp/$alawfile.wav
+  sox -r 16k -t al -c 1 $alawfile /tmp/$(basename $alawfile).wav
   rm -f $alawfile
   mkdir -p  /var/spool/micropones/mp3/$nameservice/$(date -d @$creationdate '+%m/%d/%H')
-  lame  -h /tmp/$alawfile.wav /var/spool/micropones/mp3/$nameservice/$(date -d @$creationdate '+%m/%d/%H')/$(date -d @$creationdate '+%M_%S').mp3 1>/dev/null 2>/dev/null
-  rm -f  /tmp/$alawfile.wav 
+  lame  -h /tmp/$(basename $alawfile).wav /var/spool/micropones/mp3/$nameservice/$(date -d @$creationdate '+%m/%d/%H')/$(date -d @$creationdate '+%M_%S').mp3 1>/dev/null 2>/dev/null
+  rm -f  /tmp/$(basename $alawfile).wav 
 done 
 
