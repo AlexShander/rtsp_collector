@@ -35,8 +35,8 @@ do
   fi
 done < /etc/rtspcollector/rtspcollector.conf
 
-mkdir -p /var/spool/micropones/$servicename
-cd /var/spool/micropones/$servicename
+mkdir -p /var/spool/micropones/raw/$servicename
+cd /var/spool/micropones/raw/$servicename
 echo "Run Service $servicename" >> $logfile
 echo "openRTSP -a -c -B 10000000 -b 10000000 -F ${config[devicename]}_ -u ${config[username]} ${config[password]}  -d 60 -P 60 rtsp://${config[deviceaddress]}:554/" >> $logfile
 openRTSP -a -c -B 10000000 -b 10000000 -F ${config[devicename]}_ -u ${config[username]} ${config[password]}  -d 60 -P 60 rtsp://${config[deviceaddress]}:554/  >> $logfile  2>&1 
