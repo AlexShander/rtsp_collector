@@ -1,7 +1,6 @@
 #!/bin/bash
 # We load just one service and its config.
 
-
 servicename=$1
 logfile=/var/log/rtspcollector.log
 
@@ -27,7 +26,6 @@ do
      foundsection=false
   fi
   if  $foundsection  && [[ -z "$section" ]]; then
-   echo foundsection $foundsection section $section
     key=$(echo $line | grep -v "^[[:blank:]]*#.*$" | sed 's/[[:blank:]]//g'| cut -d \# -f 1 | cut -d= -f 1)
     value=$(echo $line | grep -v "^[[:blank:]]*#.*$" | sed 's/[[:blank:]]//g'| cut -d \# -f 1 | cut -d= -f 2)
     if [[ ! -z $key ]]; then
@@ -40,14 +38,5 @@ mkdir -p /var/spool/micropones/raw/$servicename
 cd /var/spool/micropones/raw/$servicename
 echo "Run Service $servicename" >> $logfile
 echo "openRTSP -a -c -B 10000000 -b 10000000 -F ${config[devicename]}_ -u ${config[username]} ${config[password]}  -d 60 -P 60 rtsp://${config[deviceaddress]}:554/" >> $logfile
-#openRTSP -a -c -B 10000000 -b 10000000 -F ${config[devicename]}_ -u ${config[username]} ${config[password]}  -d 60 -P 60 rtsp://${config[deviceaddress]}:554/  >> $logfile  2>&1 
-
-#openRTSP 
-
-#filename=blabla
-#sox -r 16k -t al -c 1 $file /tmp/$file.wav
-#lame /tmp/mega_10.wav 
-
-
-
+openRTSP -a -c -B 10000000 -b 10000000 -F ${config[devicename]}_ -u ${config[username]} ${config[password]}  -d 60 -P 60 rtsp://${config[deviceaddress]}:554/  >> $logfile  2>&1 
 
