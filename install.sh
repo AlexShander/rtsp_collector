@@ -14,11 +14,15 @@ cp ./src/convert_alaw_to_mp3.sh /usr/local/share/rtsp_collector/
 chmod 755 /usr/local/share/rtsp_collector/record_files.sh
 chmod 755 /usr/local/share/rtsp_collector/convert_alaw_to_mp3.sh
 conffile=/etc/rtspcollector/rtspcollector.conf
+logrotatefile=/etc/logrotate.d/rtspcollector
 if [ ! -f "$confile" ]; then
   echo -n
   echo -e "${GREEN}Copy a default configuration file /etc/rtspcollector/rtspcollector.conf${NC}"
   echo -e "${GREEN}Add into a configuration file section named like NameOfService and configure IP, Login, Password.${NC}"
   cp ./config/rtspcollector.conf /etc/rtspcollector/rtspcollector.conf
+fi
+if [ ! -f "$logrotatefile" ];then
+  cp logrotate/rtspcollector $logrotatefile
 fi
 echo -n
 echo -e "${GREEN}Add the new cron jobs:${NC}"

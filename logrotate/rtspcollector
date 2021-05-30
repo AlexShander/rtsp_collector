@@ -1,0 +1,5 @@
+/var/log/rtspcollector.log {
+    missingok
+    notifempty
+    sharedscripts
+}
