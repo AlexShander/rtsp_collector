@@ -3,7 +3,7 @@ Description=Run openSRTP to collection the files from the remoute microphones.
 After=network.target 
 
 [Service]
-Type=Simple
+Type=simple
 Restart=always
 RestartSec=30
 Environment=WORKDIR=%i
