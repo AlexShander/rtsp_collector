@@ -7,7 +7,7 @@ Type=Simple
 Restart=always
 RestartSec=30
 Environment=WORKDIR=%i
-ExecStartPre=/bin/mkdir -p /var/spool/micropones/%i
+ExecStartPre=/bin/mkdir -p /var/spool/micropones/raw/%i
 ExecStart=/usr/local/share/rtsp_collector/record_files.sh %i
 
 [Install]

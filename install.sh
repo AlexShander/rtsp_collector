@@ -15,7 +15,7 @@ chmod 755 /usr/local/share/rtsp_collector/record_files.sh
 chmod 755 /usr/local/share/rtsp_collector/convert_alaw_to_mp3.sh
 conffile=/etc/rtspcollector/rtspcollector.conf
 logrotatefile=/etc/logrotate.d/rtspcollector
-if [ ! -f "$confile" ]; then
+if [ ! -f "$conffile" ]; then
   echo -n
   echo -e "${GREEN}Copy a default configuration file /etc/rtspcollector/rtspcollector.conf${NC}"
   echo -e "${GREEN}Add into a configuration file section named like NameOfService and configure IP, Login, Password.${NC}"

@@ -1,7 +1,7 @@
 #!/bin/bash
 # We load just one service and its config.
 
-set -x
+
 servicename=$1
 logfile=/var/log/rtspcollector.log
 
@@ -20,13 +20,14 @@ while read line
 do
   section=$(echo $line | grep -v "^[[:blank:]]*#.*$" | sed 's/[[:blank:]]//g'| cut -d \# -f 1 |  awk -F'[][]' '{ print $2;  }')
   if [[ "$section" == "$servicename" ]]; then
-	  foundsection=true
-	  config[devicename]=$section
+    foundsection=true
+    config[devicename]=$section
   fi
   if [[ ! -z "$section" && "$section" != "$servicename" ]]; then
-          foundsection=false
+     foundsection=false
   fi
-  if [[ $foundsection && -z $section ]]; then
+  if  $foundsection  && [[ -z "$section" ]]; then
+   echo foundsection $foundsection section $section
     key=$(echo $line | grep -v "^[[:blank:]]*#.*$" | sed 's/[[:blank:]]//g'| cut -d \# -f 1 | cut -d= -f 1)
     value=$(echo $line | grep -v "^[[:blank:]]*#.*$" | sed 's/[[:blank:]]//g'| cut -d \# -f 1 | cut -d= -f 2)
     if [[ ! -z $key ]]; then
@@ -39,7 +40,7 @@ mkdir -p /var/spool/micropones/raw/$servicename
 cd /var/spool/micropones/raw/$servicename
 echo "Run Service $servicename" >> $logfile
 echo "openRTSP -a -c -B 10000000 -b 10000000 -F ${config[devicename]}_ -u ${config[username]} ${config[password]}  -d 60 -P 60 rtsp://${config[deviceaddress]}:554/" >> $logfile
-openRTSP -a -c -B 10000000 -b 10000000 -F ${config[devicename]}_ -u ${config[username]} ${config[password]}  -d 60 -P 60 rtsp://${config[deviceaddress]}:554/  >> $logfile  2>&1 
+#openRTSP -a -c -B 10000000 -b 10000000 -F ${config[devicename]}_ -u ${config[username]} ${config[password]}  -d 60 -P 60 rtsp://${config[deviceaddress]}:554/  >> $logfile  2>&1 
 
 #openRTSP 
 
