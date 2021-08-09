@@ -15,6 +15,7 @@ do
   rm -f $alawfile
   mkdir -p  /var/spool/micropones/mp3/$nameservice/$(date -d @$creationdate '+%m/%d/%H')
   lame  -h /tmp/$(basename $alawfile).wav /var/spool/micropones/mp3/$nameservice/$(date -d @$creationdate '+%m/%d/%H')/$(date -d @$creationdate '+%M_%S').mp3 1>/dev/null 2>/dev/null
+  touch -a -m -t $(date "+%Y%m%d%H%M.%S" -d @$creationdate)  /var/spool/micropones/mp3/$nameservice/$(date -d @$creationdate '+%m/%d/%H')/$(date -d @$creationdate '+%M_%S').mp3
   rm -f  /tmp/$(basename $alawfile).wav 
 done 
 
