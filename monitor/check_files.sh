@@ -7,7 +7,7 @@ bot_key=$4
 
 countfiles=$(find ./ -type f -size 100k -cmin -20 -name *.mp3 -print | wc -l)
 
-if [ $countfiles -gt 0 ]
+if [ $countfiles -eq 0 ]
 then
    curl -d -i -X GET  https://api.telegram.org/bot$bot_id:$bot_key/sendMessage \
    --data chat_id="$chat_id" \
