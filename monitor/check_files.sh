@@ -5,7 +5,7 @@ chat_id=$2
 bot_id=$3
 bot_key=$4
 
-countfiles=$(find ./ -type f -size 100k -cmin -20 -name *.mp3 -print | wc -l)
+countfiles=$(find $mp3_path -type f -size 100k -cmin -20 -name *.mp3 -print | wc -l)
 
 if [ $countfiles -eq 0 ]
 then
